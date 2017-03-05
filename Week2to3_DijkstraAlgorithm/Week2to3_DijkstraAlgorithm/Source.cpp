@@ -43,6 +43,29 @@ int main() {
 			cout << graph[i][j].ifconnect() << endl; // << need to be overloaded for route
 		}
 
+	//Output up until here:
+	/*
+	1
+	destructor called
+	0
+	0
+	destructor called
+	0
+	destructor called
+	0
+	destructor called
+	0
+	0
+	destructor called
+	1
+	destructor called
+	0
+	0
+	destructor called
+	0
+	0
+	*/
+
 	//print out of the map
 	for (int i = 0; i < size; ++i) {
 		for (int j = 0; j < size; ++j)
