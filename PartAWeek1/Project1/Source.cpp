@@ -13,8 +13,10 @@ int main() {
 
 	int accum = 0;
 	int data[N];
-	for (int i = 0; i < N; ++i)
+	for (int i = 0; i < N; ++i) {
 		data[i] = i;
+		cout << i;
+	}
 	sum(&accum, N, data);
 	cout << "sum is" << accum << endl;
 	return 0;
