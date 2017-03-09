@@ -1,3 +1,6 @@
+#ifndef ROUTE_H
+#define ROUTE_H
+
 class route
 {
 public:
@@ -15,3 +18,5 @@ private:
 	double distance;
 
 };
+
+#endif
