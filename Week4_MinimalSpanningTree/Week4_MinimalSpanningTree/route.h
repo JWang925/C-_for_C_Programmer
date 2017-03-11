@@ -1,5 +1,4 @@
-#ifndef ROUTE_H
-#define ROUTE_H
+#pragma once //replaces the "#ifndef #define #endif" truples. 
 
 class route
 {
@@ -8,7 +7,7 @@ public:
 	bool ifconnect();
 	void set_connect(bool x);
 	void set_distance(double x);
-	route(bool x, double y);
+	route(bool x=0, double y=999); //best practice is to put default argument in the declaration
 	~route();
 
 protected:
@@ -18,5 +17,3 @@ private:
 	double distance;
 
 };
-
-#endif

@@ -9,7 +9,7 @@ using namespace std;
 	void route::set_connect(bool x) { is_connect = x; }
 	void route::set_distance(double x) { distance = x; }
 
-	route::route(bool x = 0, double y = 999):is_connect(x), distance(y) {}; //constructor //default value either exist in header file(declaration) or cpp file(definition).
+	route::route(bool x, double y):is_connect(x), distance(y) {}; //constructor //default value either exist in header file(declaration) or cpp file(definition).
 
 	route::~route() { //destructor, use to delete items created on the heap
 		cout << "destructor called" << endl;  //No need to delete any variables since nothing is defined on the heap
