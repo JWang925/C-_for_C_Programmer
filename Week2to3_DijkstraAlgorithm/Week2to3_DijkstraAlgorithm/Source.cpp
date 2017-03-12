@@ -104,7 +104,7 @@ void find_distance(double* distance, route**graph,int size, int start) { //Here 
 	c_size = 1;
 	distance[start] = 0;
 
-	while ( (old_size != c_size) || c_size==size) { //the program runs until all points are explored or no more place can be reached
+	while ( (old_size != c_size) || c_size!=size) { //the program runs until all points are explored or no more place can be reached
 		old_size = c_size;
 		for (int i = 0; i < size; ++i) { //iterate through all points in the close set
 			if (close[i] == 0) continue; //if the point is not in the closed loop, no need to explore around that point
