@@ -10,6 +10,8 @@ int main() {
 	cout << "j=++i returns " << j << endl;
 	cout << "k=i++ returns " << k << endl;
 
+	cout << 9 % 5 / 2 <<endl;
+	cout << 12 % 5 / 2 << endl;
 
 	//end of code
 	cin.clear();
