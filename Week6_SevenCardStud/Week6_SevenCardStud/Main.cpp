@@ -59,6 +59,8 @@ public:
 	card(suit s, pips v) :s(s), v(v) {};
 	card(pips v, suit s) :s(s), v(v) {};
 	friend ostream& operator << (ostream& out, const card c) { out << c.v << c.s << ' '; return out; }
+	pips get_pips() { return v; }
+	suit get_suit() { return s; }
 private:
 	suit s;
 	pips v;
@@ -78,27 +80,51 @@ void print(vector<card>& deck) {
 		cout << *it;
 	cout << endl;
 }
+
+//Identify if this is a flush
+bool is_straight(vector<card>&hand) {
+	int pips_v[5], i = 0;
+	for (auto p = hand.begin(); p != hand.end(); ++p)
+		pips_v[i++] = int (p->get_pips()); //use a cast to cast from enum class to int
+
+	//for (i = 0; i < 5;i++) 
+	//	cout << pips_v[i] << '\t';
+
+	sort(begin(pips_v),end(pips_v));
+	if (pips_v[0] != 1) 
+		return (pips_v[0] == (pips_v[1] - 1)) && (pips_v[1] == pips_v[2] - 1) && (pips_v[2] == pips_v[3] - 1) && (pips_v[3] == pips_v[4] - 1);
+	else 
+		return (pips_v[0] == (pips_v[1] + 4)) && (pips_v[1] == pips_v[2] - 1) && (pips_v[2] == pips_v[3] - 1) && (pips_v[3] == pips_v[4] - 1); 
+}
+
+bool is_flush(vector<card>&hand) {
+	suit s = hand[0].get_suit();
+	for (auto it = hand.begin()+1; it != hand.end(); ++it)
+		if (s != it->get_suit()) return false;
+	return true;
+}
+
 int main() {
 	//initialize a deck of cards, a deck of cards is a "vector" of cards
-	vector<card> deck(52);
+	vector<card> deck(52); //size 52
 	init_deck(deck);
 	srand(time(0));
+
+	while (1) {
 	random_shuffle(deck.begin(),deck.end());
-
 	//print(deck);
-
-	//get the first five cards
-	vector <card> hand(5);
+	vector <card> hand(5); //To store the five-card hand
 	int i = 0;
 	for (auto p = deck.begin(); i < 5; ++p) hand[i++] = *p;
-	
 	print(hand);
-
-
+	if (is_straight(hand))
+		cout << "is_straight " << endl;
+	if(is_flush(hand))
+		cout << "is_flush" << endl;
+	}
 
 	cin.clear();
 	cin.ignore(32767, '\n');
 	cin.get();
 	return 0;
 }
-
