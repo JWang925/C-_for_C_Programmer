@@ -1,7 +1,7 @@
 #include "hexPlayer.h"
 
 std::tuple<int, int> HexPlayer(const hexGraph& graph, int player, std::string strategy) {
-	std::cout << "player" << player << "is thinking";
+	//std::cout << "player" << player << "is thinking" << std::endl;
 	
 	
 	//get the data from graph
@@ -14,12 +14,10 @@ std::tuple<int, int> HexPlayer(const hexGraph& graph, int player, std::string st
 
 	//decide the i,j
 	int i, j;
-	srand(time(nullptr));
 	while (1) {
-		i = rand()%edge_length; j = rand()%edge_length;
+		i = rand() % edge_length; j = rand() % edge_length;
 		if (map[i* edge_length + j] == 0) break;
 	}
-
-	std::cout << "Player" << player << "is making a move at [" << i << "] ["<< j << "]" << std::endl;
+	//std::cout << "Player" << player << "is making a move at [" << i << "] ["<< j << "]" << std::endl;
 	return std::make_tuple(i,j); 
 }

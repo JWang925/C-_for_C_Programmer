@@ -20,7 +20,7 @@ public:
 				if (i != edge_length-1 && j!=0) edgelist[count].push_back((i + 1)*edge_length + j -1); //left bottom edge
 				if (i != edge_length-1)	edgelist[count].push_back((i + 1)*edge_length + j );	//right bottom edge
 				count++;
-				for(auto it:edgelist[count-1]) std::cout << "edge list for i=" << i << " j=" << j << " is " << it << std::endl;
+				/*for(auto it:edgelist[count-1]) std::cout << "edge list for i=" << i << " j=" << j << " is " << it << std::endl;*/
 			}
 	}
 	void print() {
@@ -36,22 +36,21 @@ public:
 		 
 		if (player == 2) 
 			for (int i = 0; i < edge_length; ++i) 
-				if( map[i * edge_length + 0]) close.push_back(i * edge_length + 0);// First populate close set with qualified nodes on the left
+				if( map[i * edge_length + 0]==player) close.push_back(i * edge_length + 0);// First populate close set with qualified nodes on the left
 		if (player == 1) 
 			for (int j = 0; j < edge_length; ++j)
-				if (map[0 * edge_length + j]) close.push_back(0 * edge_length + j);// First populate close set with qualified nodes on the top
+				if (map[0 * edge_length + j]==player) close.push_back(0 * edge_length + j);// First populate close set with qualified nodes on the top
 
+		int i=0; //i is the number of points in the close set which has been checked their neiborgh for legal points
 		while (old_csize!=close.size()) { //continue to add hex into the close set
 			old_csize = close.size();
-			std::vector <int> temp{};
-			for (auto it = close.begin(); it != close.end();++it) {
-				std::cout << "for loop called" << std::endl;
-				for (auto it2 = edgelist[*it].begin(); it2 != edgelist[*it].end(); ++it2) { //it2 iterates through all the points that it can reach
-					if (map[*it2] == player && (std::find(close.begin(), close.end(), map[*it2]) == close.end())   ) temp.push_back(*it2);  //if it2 is also occupied by player, then add it to close list
+			for (; i != close.size();++i) { //iterate through vector(the close set) of which the size changes
+				//for (int i_temp : close) std::cout << i_temp << ' '; std::cout << std::endl; //output all the points in the close set //range base for loop
+				for (auto it = edgelist[close[i]].begin(); it != edgelist[close[i]].end(); ++it) { //it iterates through all the points that it can reach
+					if (map[*it] == player && (std::find(close.begin(), close.end(), *it) == close.end())   ) close.push_back(*it);  //if it is also occupied by player, then add it to close list
 				}
 			}
-			close.insert(close.end(),temp.begin(),temp.end());
-			for (auto it = close.begin(); it != close.end(); ++it) std::cout << *it << std::endl;
+
 		}
 		for (int i = 0; i < edge_length; ++i) { //check if 
 			if (player == 2 && std::find(close.begin(), close.end(), i*edge_length + edge_length - 1) != close.end()) return true; //check if right edge is in the close set
