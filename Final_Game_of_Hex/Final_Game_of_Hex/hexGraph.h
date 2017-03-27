@@ -23,8 +23,27 @@ public:
 				/*for(auto it:edgelist[count-1]) std::cout << "edge list for i=" << i << " j=" << j << " is " << it << std::endl;*/
 			}
 	}
+
+	hexGraph(const hexGraph& graph) {
+		edge_length = graph.edge_length;
+		edgelist.resize(edge_length*edge_length);
+		map.resize(edge_length*edge_length);
+		map = graph.get_map();
+		edgelist = graph.edgelist;
+	}
+
+	~hexGraph() {}
+
+
+
+
 	void print() {
-		for (int i = 0; i < edge_length; ++i) { 
+		std::cout << "  ";
+		for (int i = 0; i < edge_length; ++i) std::cout << i << ' '; //coordinates
+		std::cout << std::endl;
+
+		for (int i = 0; i < edge_length; ++i) { //each for iteration prints a line
+			std::cout << i << ' '; //prints line number
 			for (int k = 0; k < i; ++k) std::cout << " "; //indent
 				for (int j = 0; j < edge_length; ++j) std::cout << map[i*edge_length+j] << " ";
 			std::cout << std::endl;
@@ -58,8 +77,6 @@ public:
 		}
 		return false;
 	}
-
-
 	int place_bit(int i, int j, int player) { //players are no.1 and no.2
 		if (player != 1 && player != 2) { std::cout << "player does not exist"<<std::endl;  return 1; }
 		if (map[i * edge_length + j] != 0) { std::cout << "That location is pre-occupied"<<std::endl; return 1; }
@@ -68,8 +85,16 @@ public:
 	}
 	std::vector<int> get_map() const { return map; }
 	int get_edge_length() const { return edge_length; }
+
+
+	int possible_move() {
+		return ( std::count(map.begin(), map.end(), 0));
+	}
+
+	std::vector<int> map;
+
 private:
 	int edge_length=11;
 	std::vector<std::vector<int>> edgelist; //edge list is a 2-by-2 matrix, 1st dimension: all the nodes. 2nd dimension: A vector of all the nodes that it is connected to.
-	std::vector<int> map;
+
 };

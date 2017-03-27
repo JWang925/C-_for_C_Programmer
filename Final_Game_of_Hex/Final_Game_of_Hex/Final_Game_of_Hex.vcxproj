@@ -118,6 +118,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="hexGraph.cpp" />
     <ClCompile Include="HexPlayer.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
