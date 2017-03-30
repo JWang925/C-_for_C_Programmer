@@ -16,14 +16,14 @@ std::tuple<int, int> HexPlayer(const hexGraph& graph, int player, strategy st) {
 	case Random:
 		while (1) {
 			i = rand() % edge_length; j = rand() % edge_length;
-			if (graph.map[i* edge_length + j] == 0) break;
+			if (graph.get_stone(i, j) == 0) break;
 		}
 		break;
 	case MC:
 		std::vector<double> value(edge_length*edge_length,0); // a value table to store the value of each possible move
 		for (int k = 0; k < edge_length*edge_length; ++k) { // iterate through all the possible place for stones
-			if (graph.map[k] != 0) continue; //skip it if it is already occupied 
-			value[k] = MCsimulation(graph, k, player, 500);
+			if (graph.get_stone(k) != 0) continue; //skip it if it is already occupied 
+			value[k] = MCsimulation(graph, k, player, 1000);
 			//std::cout << k << " " << value[k] << std::endl; //debug option
 
 		}
@@ -60,7 +60,7 @@ double MCsimulation(const hexGraph& graph, int k, int player, int nsimul) { //th
 			int i, j; //allocate i,j to store intended move
 			while (1) { //pick a possible move
 				i = rand() % MC2graph.get_edge_length(); j = rand() % MC2graph.get_edge_length();
-				if (MC2graph.map[i* MC2graph.get_edge_length() + j] == 0) break;
+				if (MC2graph.get_stone(i,j) == 0) break;
 			}
 
 			MC2graph.place_bit(i,j, (k%2==0)?(3-player):(player));

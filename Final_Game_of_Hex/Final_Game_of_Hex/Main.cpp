@@ -3,17 +3,17 @@
 #include <iostream>
 #include "hexGraph.h"
 #include "hexPlayer.h"
-
-
+#include <fstream>
 using namespace std;
 
 int main() {
 	srand(time(nullptr)); //seed the random number generator
 	int awin = 0; int bwin = 0; //running winning count
-	int ngame = pow(10, 2); //running game count
+	int ngame = pow(10, 2); //total game count
 	clock_t begin = clock();  //to time the game session time
+	int boardsize = 10;
 
-	cout << "HEX GAME version 1.0 Board size =5" << endl;
+	cout << "HEX GAME version 1.0 Board size =10" << endl;
 	cout << "Would like to play the game or watch?(Y/N)" << endl;
 	char temp;  cin >> temp;
 	bool if_Human_Plays;
@@ -29,9 +29,8 @@ int main() {
 		cerr << "Invalid input, exiting program"; return 1;
 	}
 
-
-	for (int igame = 0; igame < ngame; igame++) { //running the game for ngame times
-		hexGraph graph(5); //game setup
+	for (int igame = 0; igame < ngame; igame++) { //each loop is one game
+		hexGraph graph(boardsize); //game setup
 		//graph.print();
 		int i, j, temp;
 		while (1) { //game running
