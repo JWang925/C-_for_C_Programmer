@@ -18,8 +18,7 @@ HexPlayer is a function which looks at the graph and decide which move to make. 
 Params: (const HexGraph, int Player number, and strategy type);
 Returns: (first: i coordinate; second, j coordinate);
 */
-std::tuple<int,int> HexPlayer(const hexGraph& graph, int player, strategy st); 
-
+std::tuple<int,int> HexPlayer(const hexGraph& graph, int player, strategy st, int nsimul=1000); //1000 being the default value.
 /*
 MCsimulation calculates the MC value(the tendency to be a good move) for each move. This info is used to decide the move for AI.
 params: (const HexGraph, int Player number, strategy type and number of MC simulations to run);

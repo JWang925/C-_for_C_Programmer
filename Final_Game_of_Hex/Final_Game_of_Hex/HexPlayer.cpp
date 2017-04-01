@@ -1,7 +1,7 @@
 #include "hexPlayer.h"
 #include <algorithm>
 
-std::tuple<int, int> HexPlayer(const hexGraph& graph, int player, strategy st) {
+std::tuple<int, int> HexPlayer(const hexGraph& graph, int player, strategy st, int nsimul) {
 	//get the data from graph
 	int edge_length;
 	edge_length = graph.get_edge_length();
@@ -23,7 +23,7 @@ std::tuple<int, int> HexPlayer(const hexGraph& graph, int player, strategy st) {
 		std::vector<double> value(edge_length*edge_length,0); // a value table to store the value of each possible move
 		for (int k = 0; k < edge_length*edge_length; ++k) { // iterate through all the possible place for stones
 			if (graph.get_stone(k) != 0) continue; //skip it if it is already occupied 
-			value[k] = MCsimulation(graph, k, player, 1000);
+			value[k] = MCsimulation(graph, k, player, nsimul);
 			//std::cout << k << " " << value[k] << std::endl; //debug option
 
 		}

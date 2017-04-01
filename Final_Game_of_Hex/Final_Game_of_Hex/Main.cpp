@@ -4,16 +4,33 @@
 #include "hexGraph.h"
 #include "hexPlayer.h"
 #include <fstream>
+#include <string>
 using namespace std;
 
 int main() {
 	srand(time(nullptr)); //seed the random number generator
 	int awin = 0; int bwin = 0; //running winning count
 	int ngame = pow(10, 2); //total game count
-	clock_t begin = clock();  //to time the game session time
-	int boardsize = 10;
+	int boardsize;
+	int nsimul; //number of MC simulation performed for the AI
+	ifstream myfile;
+	string dummy;
+	myfile.open("settings.dat");
+	if (myfile.is_open()) {
+		myfile >> dummy;
+		myfile >> boardsize;
+		myfile >> dummy;
+		myfile >> nsimul;
 
-	cout << "HEX GAME version 1.0 Board size =10" << endl;
+		myfile.close();
+	}
+	else std::cout << "Unable to open file";
+
+
+	clock_t begin = clock();  //to time the game session time
+
+
+	cout << "HEX GAME version 1.0 \n Board size =" << boardsize <<"\n" << endl;
 	cout << "Would like to play the game or watch?(Y/N)" << endl;
 	char temp;  cin >> temp;
 	bool if_Human_Plays;
@@ -49,8 +66,7 @@ int main() {
 			if (temp != 0) { cout << "error occurs!" << endl; throw std::exception(); } //need to catch this exception later
 			if (graph.is_winner(1)) { awin++; cout << "You win! Game is restaring!" <<endl; break; }
 
-
-			tie(i, j) = HexPlayer(graph, 2, MC);
+			tie(i, j) = HexPlayer(graph, 2, MC,nsimul);
 			temp = graph.place_bit(i, j, 2);
 			if (temp != 0) { cout << "error occurs!" << endl; throw std::exception(); }
 			if (graph.is_winner(2)) { bwin++; cout << "You lose!"; break; }

@@ -7,7 +7,8 @@ void hexGraph::print() {//print out the board
 	std::cout << std::endl;
 
 	for (int i = 0; i < edge_length; ++i) { //each for iteration prints a line
-		std::cout << i << ' '; //prints line number
+		if(i<=9) std::cout << i << ' '; //prints line number
+		else std::cout << i;
 		for (int k = 0; k < i; ++k) std::cout << " "; //indent
 		for (int j = 0; j < edge_length; ++j) std::cout << map[i*edge_length + j] << " ";
 		std::cout << std::endl;
