@@ -48,6 +48,8 @@ bool hexGraph::is_winner(int player) { //Find a spanning tree starting with all 
 
 
 int hexGraph::place_bit(int i, int j, int player) { //players are no.1 and no.2
+	
+	if (i >= edge_length || j >= edge_length) { std::cout << "input is out of range" << std::endl;  return 1; }
 	if (player != 1 && player != 2) { std::cout << "player does not exist" << std::endl;  return 1; }
 	if (map[i * edge_length + j] != 0) { std::cout << "That location is pre-occupied" << std::endl; return 1; }
 	map[i * edge_length + j] = player;

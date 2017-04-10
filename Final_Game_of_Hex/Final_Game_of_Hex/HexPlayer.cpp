@@ -28,6 +28,7 @@ std::tuple<int, int> HexPlayer(const hexGraph& graph, int player, strategy st, i
 
 		}
 		auto max = std::max_element(value.begin(), value.end());
+		std::cout << "MC parameters: ";
 		std::cout << "Max element is" << *max;
 		std::cout << "at position" << std::distance(value.begin(), max) << std::endl;
 		i = std::distance(value.begin(), max) / edge_length;
@@ -47,11 +48,6 @@ double MCsimulation(const hexGraph& graph, int k, int player, int nsimul) { //th
 	//MCgraph.print();
 
 	if (MCgraph.possible_move() == 0) return 1; //return  a random value (e.g. 1) if there was only one plausible move, there is no need to run MC in this case 
-	
-	//std::vector<int> One_and_Two(MCgraph.possible_move());
-	//for (int i = 0; i < MCgraph.possible_move();++i) {
-	//	One_and_Two[i]= (i%2==0) ? (3-player):(player);
-	//}
 
 	int win = 0;
 	for (int isimul = 0; isimul < nsimul; ++isimul) {
